@@ -8,20 +8,20 @@ debug('Loaded module');
 const html = String.raw;
 
 type PageContent = {
-  mainTitle: string;
-  mainContent: Animal | null;
-  script?: string;
+    mainTitle: string;
+    mainContent: Animal | null;
+    script?: string;
 };
 
 export class UpsertProductsPage extends BasePage {
-  constructor(protected title = 'Animals | Demo Products') {
-    super(title);
-  }
+    constructor(protected title = 'Animals | Demo Products') {
+        super(title);
+    }
 
-  private renderFormItems = (item: Animal | null) => {
-    item = item?.name ? item : null;
+    private renderFormItems = (item: Animal | null) => {
+        item = item?.name ? item : null;
 
-    return html`
+        return html`
             <fieldset>
                 <label class="input">
                     <input
@@ -41,7 +41,7 @@ export class UpsertProductsPage extends BasePage {
                         id="sciName"
                         name="sciName"
                         placeholder=" "
-                        ${item && `value="${item.sciname}"`}
+                        ${item && `value="${item.sciName}"`}
                     />
                     <span>Nombre científico:</span>
                 </label>
@@ -51,7 +51,7 @@ export class UpsertProductsPage extends BasePage {
                         id="englishName"
                         name="englishName"
                         placeholder=" "
-                        ${item && `value="${item.engname}"`}
+                        ${item && `value="${item.englishName}"`}
                     />
                     <span>Nombre en inglés:</span>
                 </label>
@@ -61,7 +61,7 @@ export class UpsertProductsPage extends BasePage {
                         id="group"
                         name="group"
                         placeholder=" "
-                        ${item && `value="${item.animalgroup}"`}
+                        ${item && `value="${item.group}"`}
                     />
                     <span>Grupo (e.g. Mamíferos, Aves...):</span>
                 </label>
@@ -131,16 +131,17 @@ export class UpsertProductsPage extends BasePage {
                 </label>
             </fieldset>
         `;
-  };
+    };
 
-  override renderMain({ mainTitle, mainContent }: PageContent) {
-    debug('Iniciando renderMain');
+    override renderMain({ mainTitle, mainContent }: PageContent) {
+        debug('Iniciando renderMain');
+        debug('mainContent:', mainContent);
 
-    const action = mainContent ? 'update/' + mainContent.id : 'create';
-    // const method = 'PUT/PATCH/DELETE' NO ES VÁLIDO EN HTML - se toma como GET;
-    const method = 'POST';
-    const textButton = mainContent ? 'Actualizar' : 'Crear';
-    return html`
+        const action = mainContent ? 'update/' + mainContent.id : 'create';
+        // const method = 'PUT/PATCH/DELETE' NO ES VÁLIDO EN HTML - se toma como GET;
+        const method = 'POST';
+        const textButton = mainContent ? 'Actualizar' : 'Crear';
+        return html`
             <main>
                 <section>
                     <a href="/products">
@@ -156,20 +157,20 @@ export class UpsertProductsPage extends BasePage {
                 </section>
             </main>
         `;
-  }
-
-  override render(info?: Partial<PageContent>) {
-    debug('Iniciando render');
-    if (!info) {
-      info = {
-        mainTitle: 'Crear un nuevo animal',
-        mainContent: null,
-      };
-    } else {
-      info.mainTitle = `Modificar datos del ${info.mainContent?.name}`;
-      info.mainContent = info.mainContent as Animal;
-      info.script = '/form.js';
     }
-    return super.render(info);
-  }
+
+    override render(info?: Partial<PageContent>) {
+        debug('Iniciando render');
+        if (!info) {
+            info = {
+                mainTitle: 'Crear un nuevo animal',
+                mainContent: null,
+            };
+        } else {
+            info.mainTitle = `Modificar datos del ${info.mainContent?.name}`;
+            info.mainContent = info.mainContent as Animal;
+            info.script = '/form.js';
+        }
+        return super.render(info);
+    }
 }

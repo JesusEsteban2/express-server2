@@ -1,21 +1,20 @@
 import createDebug from 'debug';
-import { RowDataPacket } from 'mysql2';
 const debug = createDebug('demo:model:animal');
 debug('Loaded module');
 
 import { z } from 'zod';
 
 export const Animal = z.object({
-  id: z.string(),
-  name: z.string().nonempty(),
-  engname: z.string(),
-  sciname: z.string(),
-  diet: z.string(),
-  lifestyle: z.string(),
-  location: z.string(),
-  slogan: z.string(),
-  animalgroup: z.string(),
-  image: z.string().url(),
+    id: z.string(),
+    name: z.string().nonempty(),
+    englishName: z.string().nonempty(),
+    sciName: z.string().nonempty(),
+    group: z.string().nonempty(),
+    image: z.string().url(),
+    diet: z.string(),
+    lifestyle: z.enum(['Diurno', 'Nocturno']),
+    location: z.string(),
+    slogan: z.string(),
 });
 
 // extract the inferred type
@@ -36,5 +35,3 @@ export type Animal = z.infer<typeof Animal>;
 export type AnimalCreateDTO = Omit<Animal, 'id'>;
 
 export type AnimalUpdateDTO = Partial<Omit<Animal, 'id'>>;
-
-export type AnimalRows = Animal & RowDataPacket;
