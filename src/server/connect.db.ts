@@ -1,6 +1,7 @@
-import { ODMLite } from '../odm/odm-lite.js';
+// import { ODMLite } from '../odm/odm-lite.js';
 import mysql from 'mysql2/promise';
 import createDebug from 'debug';
+
 const debug = createDebug('demo:server:db:connect');
 
 const dataConnection = {
@@ -9,11 +10,6 @@ const dataConnection = {
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: 'public."Animals"', // || process.env.DB_NAME,
-};
-
-export const connectDB = async () => {
-  const info = await ODMLite.initializeJSON('./data/db.json');
-  info.forEach((msg) => debug(msg));
 };
 
 export const connectMySQL = async () => {
