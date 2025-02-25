@@ -98,7 +98,7 @@ export class AnimalMySqlRepo implements Repository<Animal> {
 
   async update(id: string, data: Partial<Omit<Animal, 'id'>>): Promise<Animal> {
     const q =
-      'UPDATE INTO public."Animals" (name, engname, sciname, diet, lifestyle, location, slogan, animalgroup, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) where id= $10 RETURNING *';
+      'UPDATE public."Animals" SET (name, engname, sciname, diet, lifestyle, location, slogan, animalgroup, image) = ($1, $2, $3, $4, $5, $6, $7, $8, $9) where id= $10 RETURNING *';
     const result = await this.connection.query<Animal>(q, [
       data.name,
       data.englishName,

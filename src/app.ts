@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-// import { Connection } from 'mysql2/promise';
->>>>>>> refs/remotes/origin/main
 import express from 'express';
 import createDebug from 'debug';
 import { resolve } from 'path';
@@ -18,26 +14,17 @@ import { HomeController } from './controllers/home.controller.js';
 import { createProductsRouter } from './routers/products.router.js';
 import { HomePage } from './views/pages/home-page.js';
 import { ProductsController } from './controllers/products.mvc.controller.js';
-<<<<<<< HEAD
 import type { Repository } from './models/repository.type.js';
 import type { Animal } from './models/animal.type.js';
 import { AnimalFileRepo } from './models/animals.json.repository.js';
 import { AnimalSqliteRepo } from './models/animals.sqlite.repository.js';
 import { AnimalMySqlRepo } from './models/animals.mysql.repository.js';
 
-=======
-// import { AnimalFileRepo } from './models/animals.json.repository.js';
-import { AnimalSqlRepo } from './models/animals.sql.repository.js';
->>>>>>> refs/remotes/origin/main
 const debug = createDebug('demo:app');
 debug('Loaded module');
 
 export const createApp = () => {
-<<<<<<< HEAD
-    debug('Iniciando App...');
-=======
   debug('Iniciando App...');
->>>>>>> refs/remotes/origin/main
 
   const app = express();
   const __dirname = resolve();
@@ -70,28 +57,22 @@ export const createApp = () => {
   const homeController = new HomeController(homeView);
   app.get('/', homeController.getPage);
 
-<<<<<<< HEAD
-    let animalModel: Repository<Animal>;
-    switch (process.env.REPO as 'file' | 'sqlite' | 'mysql') {
-        case 'sqlite':
-            animalModel = new AnimalSqliteRepo();
-            break;
-        case 'mysql':
-            animalModel = new AnimalMySqlRepo();
-            break;
-        case 'file':
-            animalModel = new AnimalFileRepo();
-            break;
-        default:
-            throw new Error('Invalid repository');
-    }
+  let animalModel: Repository<Animal>;
+  switch (process.env.REPO as 'file' | 'sqlite' | 'mysql') {
+    case 'sqlite':
+      animalModel = new AnimalSqliteRepo();
+      break;
+    case 'mysql':
+      animalModel = new AnimalMySqlRepo();
+      break;
+    case 'file':
+      animalModel = new AnimalFileRepo();
+      break;
+    default:
+      throw new Error('Invalid repository');
+  }
 
-    const productsController = new ProductsController(animalModel);
-=======
-  // const animalModel = new AnimalFileRepo();
-  const animalModel = new AnimalSqlRepo(conextion);
   const productsController = new ProductsController(animalModel);
->>>>>>> refs/remotes/origin/main
 
   app.use('/products', createProductsRouter(productsController));
 
