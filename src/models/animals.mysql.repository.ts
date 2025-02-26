@@ -82,13 +82,13 @@ export class AnimalMySqlRepo implements Repository<Animal> {
       'INSERT INTO public."Animals" (name, engname, sciname, diet, lifestyle, location, slogan, animalgroup, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
     const result = await this.connection.query<Animal>(q, [
       data.name,
-      data.englishName,
-      data.sciName,
+      data.engname,
+      data.sciname,
       data.diet,
       data.lifestyle,
       data.location,
       data.slogan,
-      data.group,
+      data.animalgroup,
       data.image,
     ]);
     const rows = result.rows;
@@ -101,13 +101,13 @@ export class AnimalMySqlRepo implements Repository<Animal> {
       'UPDATE public."Animals" SET (name, engname, sciname, diet, lifestyle, location, slogan, animalgroup, image) = ($1, $2, $3, $4, $5, $6, $7, $8, $9) where id= $10 RETURNING *';
     const result = await this.connection.query<Animal>(q, [
       data.name,
-      data.englishName,
-      data.sciName,
+      data.engname,
+      data.sciname,
       data.diet,
       data.lifestyle,
       data.location,
       data.slogan,
-      data.group,
+      data.animalgroup,
       data.image,
       id,
     ]);
